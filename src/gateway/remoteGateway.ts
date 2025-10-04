@@ -1,98 +1,96 @@
-import { List } from '~/types';
+// const BACKED_HOST = process.env.REMOTE_BACKEND_HOST;
 
-const BACKED_HOST = process.env.REMOTE_BACKEND_HOST;
+// export class RemoteGateWay {
+//   getLists = async () => {
+//     const res = await fetch(BACKED_HOST + '/list', {
+//       method: 'GET',
+//     });
 
-export class RemoteGateWay {
-  getLists = async () => {
-    const res = await fetch(BACKED_HOST + '/list', {
-      method: 'GET',
-    });
+//     if (res.status === 500 || !res.ok) {
+//       console.error('could not fetch lists');
+//     }
 
-    if (res.status === 500 || !res.ok) {
-      console.error('could not fetch lists');
-    }
+//     const json = await res.json();
 
-    const json = await res.json();
+//     return json;
+//   };
 
-    return json;
-  };
+//   addList = async (list: List) => {
+//     const { _id, ...listToSubmit } = list;
 
-  addList = async (list: List) => {
-    const { _id, ...listToSubmit } = list;
+//     const res = await fetch(BACKED_HOST + '/list', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(listToSubmit),
+//     });
 
-    const res = await fetch(BACKED_HOST + '/list', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(listToSubmit),
-    });
+//     if (res.status === 500 || !res.ok) {
+//       console.error('could not save new list');
+//     } else {
+//       const json = await res.json();
+//       return json;
+//     }
+//   };
 
-    if (res.status === 500 || !res.ok) {
-      console.error('could not save new list');
-    } else {
-      const json = await res.json();
-      return json;
-    }
-  };
+//   deleteList = async (listId: string) => {
+//     const res = await fetch(BACKED_HOST + `/list/${listId}`, {
+//       method: 'DELETE',
+//     });
 
-  deleteList = async (listId: string) => {
-    const res = await fetch(BACKED_HOST + `/list/${listId}`, {
-      method: 'DELETE',
-    });
+//     if (res.status === 500 || !res.ok) {
+//       console.error('could not delete slist');
+//     }
+//   };
 
-    if (res.status === 500 || !res.ok) {
-      console.error('could not delete slist');
-    }
-  };
+//   updateList = async (list: List) => {
+//     const { _id, ...listToSubmit } = list;
 
-  updateList = async (list: List) => {
-    const { _id, ...listToSubmit } = list;
+//     const res = await fetch(BACKED_HOST + `/list/${_id}`, {
+//       method: 'PUT',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(listToSubmit),
+//     });
 
-    const res = await fetch(BACKED_HOST + `/list/${_id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(listToSubmit),
-    });
+//     if (res.status === 500 || !res.ok) {
+//       console.error('could not update list');
+//     }
+//   };
 
-    if (res.status === 500 || !res.ok) {
-      console.error('could not update list');
-    }
-  };
+//   loginUser = async (user: { userName: string; password: string }) => {
+//     const res = await fetch(BACKED_HOST + `/login`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(user),
+//     });
 
-  loginUser = async (user: { userName: string; password: string }) => {
-    const res = await fetch(BACKED_HOST + `/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    });
+//     if (res.status === 500 || !res.ok) {
+//       console.error('Could not sign up user');
+//     }
+//     const json = await res.json();
 
-    if (res.status === 500 || !res.ok) {
-      console.error('Could not sign up user');
-    }
-    const json = await res.json();
+//     return json;
+//   };
 
-    return json;
-  };
+//   signupUser = async (user: { userName: string; password: string }) => {
+//     const res = await fetch(BACKED_HOST + `/signup`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(user),
+//     });
 
-  signupUser = async (user: { userName: string; password: string }) => {
-    const res = await fetch(BACKED_HOST + `/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    });
+//     if (res.status === 500 || !res.ok) {
+//       console.error('Could not sign up user');
+//     }
+//     const json = await res.json();
 
-    if (res.status === 500 || !res.ok) {
-      console.error('Could not sign up user');
-    }
-    const json = await res.json();
-
-    return json;
-  };
-}
+//     return json;
+//   };
+// }

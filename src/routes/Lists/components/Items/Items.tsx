@@ -1,8 +1,7 @@
-import React, { Fragment, useState } from 'react';
-import { Collapse } from 'react-bootstrap';
-import { updateList } from '../../../../gateway';
-import { Item, List } from '~/types';
-import { GroceryItem, CompleteItemModal } from './';
+import { Fragment, useState } from "react";
+import { Item, List } from "../../../../../types";
+import { updateList } from "../../../../gateway";
+import { CompleteItemModal, GroceryItem } from "./";
 
 export const Items = ({
   selectedList,
@@ -13,13 +12,13 @@ export const Items = ({
 }) => {
   const [showCompletedItems, setShowCompletedItems] = useState(true);
   const [completingItem, setCompletingItem] = useState(false);
-  const [selectedItemId, setSelectedItemId] = useState('');
+  const [selectedItemId, setSelectedItemId] = useState("");
 
   const items = selectedList.items;
   const completedItems = items.filter((item: Item) => item.completed === true);
   const stopCompletingItem = () => {
     setCompletingItem(false);
-    setSelectedItemId('');
+    setSelectedItemId("");
   };
 
   const handleOnClickSave = async (completedBy: string, price: string) => {
@@ -36,7 +35,9 @@ export const Items = ({
         _id: selectedList._id,
         name: selectedList.name,
         items: [
-          ...selectedList.items.filter((i: Item) => i.itemId !== selectedItemId),
+          ...selectedList.items.filter(
+            (i: Item) => i.itemId !== selectedItemId
+          ),
           completedItem,
         ],
       });
@@ -50,7 +51,9 @@ export const Items = ({
       updateList({
         _id: selectedList._id,
         name: selectedList.name,
-        items: [...selectedList.items.filter((item) => item.itemId != selectedItemId)],
+        items: [
+          ...selectedList.items.filter((item) => item.itemId != selectedItemId),
+        ],
       });
       setCompletingItem(false);
     }
@@ -76,7 +79,9 @@ export const Items = ({
   const getItemPlaceholder = () => {
     return (
       <div className="itemPlaceholder">
-        {items.length === 0 ? "Let's get started, add a new item" : 'Good job, you are all set'}
+        {items.length === 0
+          ? "Let's get started, add a new item"
+          : "Good job, you are all set"}
       </div>
     );
   };
@@ -93,26 +98,30 @@ export const Items = ({
                   key={item.itemId}
                   startCompletingItem={startCompletingItem}
                 />
-              ),
+              )
           )}
       {hasSomeCompleted && (
         <Fragment>
           <div className="formGroup">
-            <div className="completed-header input-group" onClick={toogleCompletedItems}>
+            <div
+              className="completed-header input-group"
+              onClick={toogleCompletedItems}
+            >
               completed
-              <span className={showCompletedItems ? 'active arrow' : 'arrow'}>
+              <span className={showCompletedItems ? "active arrow" : "arrow"}>
                 <span />
                 <span />
               </span>
             </div>
           </div>
-          <Collapse in={showCompletedItems}>
+          <> ex bootstrap modal </>
+          {/* <Collapse in={showCompletedItems}>
             <div>
               {completedItems.length !== 0
                 ? completedItems.map((item: Item) => <GroceryItem key={item.itemId} item={item} />)
                 : null}
             </div>
-          </Collapse>
+          </Collapse> */}
         </Fragment>
       )}
 

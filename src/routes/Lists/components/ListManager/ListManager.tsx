@@ -1,18 +1,8 @@
-import React, { ChangeEvent, Fragment, useState } from 'react';
-import {
-  ButtonGroup,
-  Button,
-  Form,
-  Collapse,
-  InputGroup,
-  FormControl,
-  FormText,
-  FormGroup,
-} from 'react-bootstrap';
-import { v4 as uuidv4 } from 'uuid';
-import { AddListModal, DeleteListModal } from './';
-import { List } from '~/types';
-import { addList, deleteList, updateList } from '../../../../gateway';
+import { ChangeEvent, Fragment, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { List } from "../../../../../types";
+import { addList, deleteList, updateList } from "../../../../gateway";
+import { AddListModal, DeleteListModal } from "./";
 
 export const ListManager = ({
   lists,
@@ -28,7 +18,7 @@ export const ListManager = ({
   const [addListModalVisible, setAddListModalVisible] = useState(false);
   const [deleteListModalVisible, setDeleteListModalVisible] = useState(false);
   const [addingItem, setAddingItem] = useState(false);
-  const [newItemName, setNewItemName] = useState('');
+  const [newItemName, setNewItemName] = useState("");
 
   const selectedList = lists?.find((list) => list._id === selectedListId);
 
@@ -37,7 +27,7 @@ export const ListManager = ({
   };
 
   const clearStateForItem = () => {
-    setNewItemName('');
+    setNewItemName("");
   };
 
   const handleOnClickSaveNewList = async (newListName: string) => {
@@ -97,20 +87,22 @@ export const ListManager = ({
   return (
     <div className="main-component">
       <div className="list-operations">
-        <ButtonGroup size="sm" className="mb-2">
+        ex bootsrtap
+        {/* <ButtonGroup size="sm" className="mb-2">
           <Button onClick={() => setAddListModalVisible(true)}>
             <i className="fas fa-plus" /> Add new list
           </Button>
           <Button
             disabled={selectedListId == null}
             variant="outline-danger"
-            onClick={() => setDeleteListModalVisible(true)}>
+            onClick={() => setDeleteListModalVisible(true)}
+          >
             <i className="far fa-trash-alt"></i> Delete current list
           </Button>
-        </ButtonGroup>
+        </ButtonGroup> */}
       </div>
-
-      <Form>
+      ex bootsrtap
+      {/* <Form>
         <FormGroup controlId="selectList">
           <InputGroup>
             <FormControl
@@ -118,7 +110,8 @@ export const ListManager = ({
                 updateSelectedListId((e.target as HTMLInputElement).value)
               }
               value={selectedListId}
-              as="select">
+              as="select"
+            >
               {lists != null && lists.length > 0 ? (
                 lists.map((list: List) => (
                   <option value={list._id} key={list._id}>
@@ -132,14 +125,14 @@ export const ListManager = ({
             </FormControl>
           </InputGroup>
         </FormGroup>
-      </Form>
-
+      </Form> */}
       {lists != null && lists.length > 0 ? (
         <Fragment>
           <div className="new-item-btn" onClick={toogleItemForm}>
             Add new item
           </div>
-          <Collapse in={addingItem}>
+          ex bootsrtap
+          {/* <Collapse in={addingItem}>
             <Form>
               <FormControl
                 placeholder="Enter item name"
@@ -149,20 +142,22 @@ export const ListManager = ({
               <FormText className="text-muted">
                 This item will be added to the selected shopping list.
               </FormText>
-              <Button variant="primary" onClick={handleOnClickAdd} disabled={newItemName === ''}>
+              <Button
+                variant="primary"
+                onClick={handleOnClickAdd}
+                disabled={newItemName === ""}
+              >
                 Add
               </Button>
             </Form>
-          </Collapse>
+          </Collapse> */}
         </Fragment>
       ) : null}
-
       <AddListModal
         show={addListModalVisible}
         stopAddingList={() => setAddListModalVisible(false)}
         handleOnClickSave={handleOnClickSaveNewList}
       />
-
       <DeleteListModal
         list={lists?.find((list) => list._id === selectedListId)}
         show={deleteListModalVisible}

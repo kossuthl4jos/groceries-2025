@@ -1,6 +1,6 @@
-import { List } from '~/types';
+import { List } from "../../types";
 
-const TOKEN_KEY = 'groceries-lists';
+const TOKEN_KEY = "groceries-lists";
 
 function saveLists(lists: Array<List>) {
   if (lists != null) {
@@ -11,7 +11,9 @@ function saveLists(lists: Array<List>) {
 export class LocalGateWay {
   getLists = async () => {
     const groceriesList = localStorage.getItem(TOKEN_KEY) ?? '{ "lists": [] }';
-    const { lists } = JSON.parse(groceriesList != null ? groceriesList : '{ "lists": [] }');
+    const { lists } = JSON.parse(
+      groceriesList != null ? groceriesList : '{ "lists": [] }'
+    );
 
     return lists;
   };
@@ -23,6 +25,7 @@ export class LocalGateWay {
     const newLists: Array<List> = [...(lists ?? []), list];
 
     saveLists(newLists);
+    return newLists;
   };
 
   deleteList = (listId: string) => {
@@ -38,21 +41,27 @@ export class LocalGateWay {
     const groceriesList = localStorage.getItem(TOKEN_KEY) ?? '{ "lists": [] }';
     const { lists } = JSON.parse(groceriesList);
 
-    const newLists: Array<List> = [...(lists.filter((l: List) => l._id !== list._id) ?? []), list];
+    const newLists: Array<List> = [
+      ...(lists.filter((l: List) => l._id !== list._id) ?? []),
+      list,
+    ];
     saveLists(newLists);
   };
 
   loginUser = async (user: { userName: string; password: string }) => {
     for (var key in localStorage) {
-      if (key.startsWith('groceries-user-key')) {
+      if (key.startsWith("groceries-user-key")) {
         const credentials = JSON.parse(localStorage.getItem(key)!);
-        if (credentials.userName === user.userName && credentials.password === user.password) {
+        if (
+          credentials.userName === user.userName &&
+          credentials.password === user.password
+        ) {
           return { key, error: null };
         }
       }
     }
 
-    return { key: null, error: 'User not found' };
+    return { key: null, error: "User not found" };
   };
 
   signupUser = async (user: { userName: string; password: string }) => {
