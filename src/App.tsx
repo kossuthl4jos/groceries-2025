@@ -1,36 +1,20 @@
-import { useState } from "react";
+import { NavLink, Route, Routes } from "react-router";
 import "./App.css";
+import { Login, Signup } from "./components";
+import { Lists } from "./routes/Lists/Lists";
+import Statistics from "./routes/Statistics/Statistics";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={"../public/vite.svg"} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img
-            src={"./assets/react.svg"}
-            className="logo react"
-            alt="React logo"
-          />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="App">
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/lists" element={<Lists />} />
+        <Route path="/stats" element={<Statistics />} />
+        <Route path="/" element={<NavLink to="/lists" />} />
+      </Routes>
+    </div>
   );
 }
 
