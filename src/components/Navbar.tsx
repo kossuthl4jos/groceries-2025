@@ -1,13 +1,10 @@
-import { Link, useRouterState } from "@tanstack/react-router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link, useRouterState } from "@tanstack/react-router";
 
 export const Navbar = () => {
   const pathname = useRouterState({
-    select: (state) => {
-      console.log(state);
-      return state.location.pathname;
-    },
+    select: (state) => state.location.pathname,
   });
 
   return (

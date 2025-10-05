@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/button-group";
+import { PlusIcon, Trash } from "lucide-react";
 import { ChangeEvent, Fragment, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { List } from "../../../../../types";
@@ -85,21 +88,23 @@ export const ListManager = ({
   };
 
   return (
-    <div className="main-component">
-      <div className="list-operations">
-        ex bootsrtap
-        {/* <ButtonGroup size="sm" className="mb-2">
-          <Button onClick={() => setAddListModalVisible(true)}>
-            <i className="fas fa-plus" /> Add new list
+    <div className="list-manager">
+      <div className="list-controls">
+        <ButtonGroup>
+          <Button
+            onClick={() => setAddListModalVisible(true)}
+            variant="default"
+          >
+            <PlusIcon /> Add new list
           </Button>
           <Button
             disabled={selectedListId == null}
-            variant="outline-danger"
+            variant="destructive"
             onClick={() => setDeleteListModalVisible(true)}
           >
-            <i className="far fa-trash-alt"></i> Delete current list
+            <Trash /> Delete current list
           </Button>
-        </ButtonGroup> */}
+        </ButtonGroup>
       </div>
       ex bootsrtap
       {/* <Form>
