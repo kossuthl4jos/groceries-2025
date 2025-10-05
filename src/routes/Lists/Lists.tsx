@@ -3,7 +3,7 @@ import { List } from "../../../types";
 import { getLists } from "../../gateway";
 import { Items, ListManager } from "./components";
 
-export default function Lists() {
+export const Lists = () => {
   const [lists, setLists] = useState<Array<List>>([]);
   const [selectedListId, setSelectedListId] = useState<string>();
   const selectedList = lists.find((list) => list._id === selectedListId);
@@ -39,4 +39,4 @@ export default function Lists() {
       ) : null}
     </div>
   );
-}
+};

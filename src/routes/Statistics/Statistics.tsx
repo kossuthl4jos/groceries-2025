@@ -91,5 +91,3 @@ export const Statistics = () => {
     </Fragment>
   );
 };
-
-export default Statistics;

@@ -1,26 +1,26 @@
-import { NavLink } from "react-router";
+import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 
 export const Navbar = () => {
   return (
     <div className="navigation-bar">
-      <NavLink
+      <Link
         className={`nav-button ${window.location.pathname === "/lists" ? "active" : ""}`}
         to="/lists"
       >
         <i className="fas fa-list" />
         List
-      </NavLink>
-      <NavLink
-        className={`nav-button ${window.location.pathname === "/stats" ? "active" : ""}`}
-        to="/stats"
+      </Link>
+      <Link
+        className={`nav-button ${window.location.pathname === "/statistics" ? "active" : ""}`}
+        to="/statistics"
       >
         <i className="fas fa-chart-pie" />
         Stats
-      </NavLink>
-      <NavLink className="nav-button" to="/">
+      </Link>
+      <Link className="nav-button" to="/">
         <i className="fas fa-utensils" />
         Recipes
-      </NavLink>
+      </Link>
     </div>
   );
 };
