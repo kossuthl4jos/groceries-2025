@@ -1,3 +1,15 @@
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useState } from "react";
 
 interface AddListModalProps {
@@ -14,35 +26,44 @@ export const AddListModal = ({
   const [newListName, setnewListName] = useState("");
 
   return (
-    <> ex bootstrap modal </>
-
-    // <Modal show={show} onHide={stopAddingList} centered>
-    //   <ModalHeader closeButton>
-    //     <ModalTitle>New list</ModalTitle>
-    //   </ModalHeader>
-
-    //   <ModalBody>
-    //     <FormControl
-    //       size="lg"
-    //       type="text"
-    //       placeholder="Enter name"
-    //       onChange={(e: ChangeEvent) => {
-    //         setnewListName((e.target as HTMLInputElement).value);
-    //       }}
-    //     />
-    //   </ModalBody>
-
-    //   <Modal.Footer>
-    //     <Button variant="secondary" onClick={stopAddingList}>
-    //       Close
-    //     </Button>
-    //     <Button
-    //       variant="primary"
-    //       onClick={() => handleOnClickSave(newListName)}
-    //       disabled={newListName === ''}>
-    //       Save changes
-    //     </Button>
-    //   </Modal.Footer>
-    // </Modal>
+    <Dialog open={show} onOpenChange={stopAddingList}>
+      <form>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Create a new groceries list</DialogTitle>
+            <DialogDescription>
+              This will be the name of your new list, which then you can fill
+              with ingredients
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4">
+            <div className="grid gap-3">
+              <Label htmlFor="name-1">Name</Label>
+              <Input
+                type="text"
+                id="listName"
+                name="name"
+                defaultValue="Spagetti Bolognese"
+                value={newListName}
+                onChange={(e) => setnewListName(e.target.value)}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline" onClick={stopAddingList}>
+                Cancel
+              </Button>
+            </DialogClose>
+            <Button
+              type="submit"
+              onClick={() => handleOnClickSave(newListName)}
+            >
+              Save changes
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </form>
+    </Dialog>
   );
 };
