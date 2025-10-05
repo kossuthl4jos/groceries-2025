@@ -1,5 +1,11 @@
 import { redirect } from "react-router";
 import { clearAuthToken, useAuth } from "../context";
+import { Link } from "@tanstack/react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faRightToBracket,
+  faPowerOff,
+} from "@fortawesome/free-solid-svg-icons";
 
 export function Header() {
   const { authToken, userName } = useAuth();
@@ -12,24 +18,23 @@ export function Header() {
   }
 
   return (
-    <div className="header">
-      ex bootstrap Navbar
-      {/* <Navbar className="justify-content-between" bg="primary" variant="dark">
-        <NavbarBrand>
+    <div className="bg-sky-900 text-white">
+      <nav className=" flex justify-between items-center p-4">
+        <h1 className="text-4xl font-bold">
           Groceries {authToken != null ? ` - Hello ${userName}!` : ""}
-        </NavbarBrand>
+        </h1>
         {authToken ? (
-          <div className="header-auth-button" onClick={logOut}>
-            <i className="fas fa-power-off" />
+          <div className="header-auth-button text-white" onClick={logOut}>
+            <FontAwesomeIcon icon={faPowerOff} />
             Log out
           </div>
         ) : (
-          <Link className="header-auth-button" to="/login">
-            <i className="fas fa-sign-in-alt" />
+          <Link className="header-auth-button text-white" to="/login">
+            <FontAwesomeIcon icon={faRightToBracket} />
             Log in
           </Link>
         )}
-      </Navbar> */}
+      </nav>
     </div>
   );
 }
