@@ -116,7 +116,10 @@ export const ListManager = ({
       </div>
       <div className="list-select">
         {lists != null && lists.length > 0 ? (
-          <Select>
+          <Select
+            value={selectedListId}
+            onValueChange={(value: string) => updateSelectedListId(value)}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select a list" />
             </SelectTrigger>
@@ -133,58 +136,12 @@ export const ListManager = ({
         ) : (
           <div>Please create a list first</div>
         )}
-
-        {/* <Form>
-        <FormGroup controlId="selectList">
-          <InputGroup>
-            <FormControl
-                ))
-
-            </SelectGroup>
-          </SelectContent>
-        </Select>) : <div>Please create a list first</div>}
-        
-        {/* <Form>
-        <FormGroup controlId="selectList">
-          <InputGroup>
-            <FormControl
-              onChange={(e: ChangeEvent) =>
-                updateSelectedListId((e.target as HTMLInputElement).value)
-              }
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-        {/* <Form>
-        <FormGroup controlId="selectList">
-          <InputGroup>
-            <FormControl
-              onChange={(e: ChangeEvent) =>
-                updateSelectedListId((e.target as HTMLInputElement).value)
-              }
-              value={selectedListId}
-              as="select"
-            >
-              {lists != null && lists.length > 0 ? (
-                lists.map((list: List) => (
-                  <option value={list._id} key={list._id}>
-                    {list.name}
-                  </option>
-                ))
-              ) : (
-                <option>Please create a list first</option>
-              )}
-              ;
-            </FormControl>
-          </InputGroup>
-        </FormGroup>
-      </Form> */}
       </div>
       {lists != null && lists.length > 0 ? (
         <Fragment>
           <div className="new-item-btn" onClick={toogleItemForm}>
             Add new item
           </div>
-          ex bootsrtap
           {/* <Collapse in={addingItem}>
             <Form>
               <FormControl

@@ -1,3 +1,13 @@
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { List } from "../../../../../types";
 
 interface DeleteListModalProps {
@@ -20,29 +30,36 @@ export const DeleteListModal = ({
   };
 
   return (
-    <> ex bootstrap modal </>
-    // <Modal show={show} onHide={stopDeletingList} centered>
-    //   <ModalHeader closeButton>
-    //     <ModalTitle>{`Delete a list - ${list?.name}`}</ModalTitle>
-    //   </ModalHeader>
-
-    //   <Modal.Body>
-    //     Are you sure you want to dele this list?{" "}
-    //     {numberOfItemsToComplete() > 0 ? "You still have items to buy." : ""}
-    //   </Modal.Body>
-
-    //   <Modal.Footer>
-    //     <Button variant="secondary" onClick={stopDeletingList}>
-    //       Close
-    //     </Button>
-    //     <Button
-    //       disabled={list == null}
-    //       onClick={() => handleOnClickDelete(list!._id)}
-    //       variant="danger"
-    //     >
-    //       Delete
-    //     </Button>
-    //   </Modal.Footer>
-    // </Modal>
+    <Dialog open={show} onOpenChange={stopDeletingList}>
+      <form>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>{`Delete a list - ${list?.name}`}</DialogTitle>
+            <DialogDescription>
+              This will permanently delete the list and all its items. Are you
+              sure?
+              {numberOfItemsToComplete() > 0
+                ? "You still have items to buy."
+                : ""}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline" onClick={stopDeletingList}>
+                Cancel
+              </Button>
+            </DialogClose>
+            <Button
+              type="submit"
+              variant="destructive"
+              disabled={list == null}
+              onClick={() => handleOnClickDelete(list!._id)}
+            >
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </form>
+    </Dialog>
   );
 };
