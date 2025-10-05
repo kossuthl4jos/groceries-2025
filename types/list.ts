@@ -9,5 +9,5 @@ export interface Item {
 export interface List {
   _id: string;
   name: string;
-  items: Array<Item>;
+  items: Item[];
 }

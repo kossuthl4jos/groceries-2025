@@ -3,7 +3,7 @@ import { Item, List } from "../../../types";
 import { getLists } from "../../gateway";
 
 export const Statistics = () => {
-  const [lists, setLists] = useState<Array<List>>([]);
+  const [lists, setLists] = useState<List[]>([]);
 
   const refreshLists = async () => {
     const newLists = await getLists();
@@ -52,7 +52,7 @@ export const Statistics = () => {
     return totalAmountSpent;
   };
 
-  const hasAllCompleted = (items: Array<Item>) => {
+  const hasAllCompleted = (items: Item[]) => {
     return items.every((item: Item) => item.completed);
   };
 

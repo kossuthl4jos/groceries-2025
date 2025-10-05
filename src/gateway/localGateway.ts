@@ -2,7 +2,7 @@ import { List } from "../../types";
 
 const TOKEN_KEY = "groceries-lists";
 
-function saveLists(lists: Array<List>) {
+function saveLists(lists: List[]) {
   if (lists != null) {
     localStorage.setItem(TOKEN_KEY, JSON.stringify({ lists }));
   }
@@ -22,7 +22,7 @@ export class LocalGateWay {
     const groceriesList = localStorage.getItem(TOKEN_KEY) ?? '{ "lists": [] }';
     const { lists } = JSON.parse(groceriesList);
 
-    const newLists: Array<List> = [...(lists ?? []), list];
+    const newLists: List[] = [...(lists ?? []), list];
 
     saveLists(newLists);
     return newLists;
@@ -32,7 +32,7 @@ export class LocalGateWay {
     const groceriesList = localStorage.getItem(TOKEN_KEY) ?? '{ "lists": [] }';
     const { lists } = JSON.parse(groceriesList);
 
-    const newLists: Array<List> = [...(lists ?? [])];
+    const newLists: List[] = [...(lists ?? [])];
 
     saveLists(newLists.filter((list) => list._id !== listId));
   };
@@ -41,7 +41,7 @@ export class LocalGateWay {
     const groceriesList = localStorage.getItem(TOKEN_KEY) ?? '{ "lists": [] }';
     const { lists } = JSON.parse(groceriesList);
 
-    const newLists: Array<List> = [
+    const newLists: List[] = [
       ...(lists.filter((l: List) => l._id !== list._id) ?? []),
       list,
     ];

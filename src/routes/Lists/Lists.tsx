@@ -27,7 +27,7 @@ export const Lists = () => {
   }, []);
 
   return (
-    <div style={{ maxHeight: "calc(100vh - 112px)", overflowY: "auto" }}>
+    <div>
       <ListManager
         lists={lists}
         refreshLists={refreshLists}

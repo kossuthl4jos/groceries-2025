@@ -5,7 +5,7 @@ import { LocalGateWay } from "./localGateway";
 // const backendService = backendMode === 'remote' ? new RemoteGateWay() : new LocalGateWay();
 const backendService = new LocalGateWay();
 
-export async function getLists(): Promise<Array<List>> {
+export async function getLists(): Promise<List[]> {
   return await backendService.getLists();
 }
 

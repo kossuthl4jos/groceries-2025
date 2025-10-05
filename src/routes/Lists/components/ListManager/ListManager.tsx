@@ -1,5 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { PlusIcon, Trash } from "lucide-react";
 import { ChangeEvent, Fragment, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -13,7 +21,7 @@ export const ListManager = ({
   selectedListId,
   updateSelectedListId,
 }: {
-  lists?: Array<List>;
+  lists?: List[];
   refreshLists: () => Promise<void>;
   selectedListId?: string;
   updateSelectedListId: (selectedListId?: string) => void;
@@ -88,7 +96,7 @@ export const ListManager = ({
   };
 
   return (
-    <div className="list-manager">
+    <div className="list-manager flex flex-col items-center gap-4 p-4 border-b">
       <div className="list-controls">
         <ButtonGroup>
           <Button
@@ -106,8 +114,47 @@ export const ListManager = ({
           </Button>
         </ButtonGroup>
       </div>
-      ex bootsrtap
-      {/* <Form>
+      <div className="list-select">
+        {lists != null && lists.length > 0 ? (
+          <Select>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select a list" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {lists?.map((list) => (
+                  <SelectItem key={list._id} value={list._id}>
+                    {list.name}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        ) : (
+          <div>Please create a list first</div>
+        )}
+
+        {/* <Form>
+        <FormGroup controlId="selectList">
+          <InputGroup>
+            <FormControl
+                ))
+
+            </SelectGroup>
+          </SelectContent>
+        </Select>) : <div>Please create a list first</div>}
+        
+        {/* <Form>
+        <FormGroup controlId="selectList">
+          <InputGroup>
+            <FormControl
+              onChange={(e: ChangeEvent) =>
+                updateSelectedListId((e.target as HTMLInputElement).value)
+              }
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        {/* <Form>
         <FormGroup controlId="selectList">
           <InputGroup>
             <FormControl
@@ -131,6 +178,7 @@ export const ListManager = ({
           </InputGroup>
         </FormGroup>
       </Form> */}
+      </div>
       {lists != null && lists.length > 0 ? (
         <Fragment>
           <div className="new-item-btn" onClick={toogleItemForm}>
