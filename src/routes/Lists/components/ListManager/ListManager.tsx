@@ -9,11 +9,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PlusIcon, Trash } from "lucide-react";
-import { ChangeEvent, Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { List } from "../../../../../types";
 import { addList, deleteList, updateList } from "../../../../gateway";
 import { AddListModal, DeleteListModal } from "./";
+import { AddItemModal } from "./AddItemModal";
 
 export const ListManager = ({
   lists,
@@ -29,16 +30,11 @@ export const ListManager = ({
   const [addListModalVisible, setAddListModalVisible] = useState(false);
   const [deleteListModalVisible, setDeleteListModalVisible] = useState(false);
   const [addingItem, setAddingItem] = useState(false);
-  const [newItemName, setNewItemName] = useState("");
 
   const selectedList = lists?.find((list) => list._id === selectedListId);
 
   const stopAddingItem = () => {
     setAddingItem(false);
-  };
-
-  const clearStateForItem = () => {
-    setNewItemName("");
   };
 
   const handleOnClickSaveNewList = async (newListName: string) => {
@@ -68,7 +64,7 @@ export const ListManager = ({
     setDeleteListModalVisible(false);
   };
 
-  const handleOnClickAdd = async () => {
+  const handleOnClickAddItem = async (newItemName: string) => {
     const newItem = {
       itemId: uuidv4(),
       name: newItemName,
@@ -83,7 +79,6 @@ export const ListManager = ({
       });
       await refreshLists();
       stopAddingItem();
-      clearStateForItem();
     }
   };
 
@@ -91,12 +86,8 @@ export const ListManager = ({
     setAddingItem(!addingItem);
   };
 
-  const handleNewItemName = (e: ChangeEvent) => {
-    setNewItemName((e.target as HTMLInputElement).value);
-  };
-
   return (
-    <div className="list-manager flex flex-col items-center gap-4 p-4 border-b">
+    <div className="list-manager flex flex-col items-center gap-6 py-4 px-[5%]">
       <div className="list-controls">
         <ButtonGroup>
           <Button
@@ -137,30 +128,21 @@ export const ListManager = ({
           <div>Please create a list first</div>
         )}
       </div>
-      {lists != null && lists.length > 0 ? (
+      {lists != null && lists.length > 0 && selectedList ? (
         <Fragment>
+          <div className="list-details border-b w-full pb-1 my-3 flex justify-between">
+            <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+              {selectedList.name}
+            </h2>
+            <div className="flex flex-col gap-8">
+              <Button variant="outline" size="sm" onClick={toogleItemForm}>
+                <PlusIcon /> Add new item
+              </Button>
+            </div>
+          </div>
           <div className="new-item-btn" onClick={toogleItemForm}>
             Add new item
           </div>
-          {/* <Collapse in={addingItem}>
-            <Form>
-              <FormControl
-                placeholder="Enter item name"
-                value={newItemName}
-                onChange={handleNewItemName}
-              />
-              <FormText className="text-muted">
-                This item will be added to the selected shopping list.
-              </FormText>
-              <Button
-                variant="primary"
-                onClick={handleOnClickAdd}
-                disabled={newItemName === ""}
-              >
-                Add
-              </Button>
-            </Form>
-          </Collapse> */}
         </Fragment>
       ) : null}
       <AddListModal
@@ -173,6 +155,12 @@ export const ListManager = ({
         show={deleteListModalVisible}
         stopDeletingList={() => setDeleteListModalVisible(false)}
         handleOnClickDelete={handleOnClickDeleteList}
+      />
+      <AddItemModal
+        show={addingItem}
+        selectedListName={selectedList?.name ?? ""}
+        stopAddingItem={() => setAddingItem(false)}
+        handleOnClickSave={handleOnClickAddItem}
       />
     </div>
   );
