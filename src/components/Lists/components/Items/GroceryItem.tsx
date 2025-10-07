@@ -1,51 +1,42 @@
-import { Fragment, useState } from "react";
-import { Item } from "../../../../../types";
+import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils"; // shadcn helper (for conditional classes)
+import React from "react";
+import { Item } from "types";
 
-export const GroceryItem = ({
-  item,
-  startCompletingItem,
-}: {
-  item: Item;
-  startCompletingItem?: (id: string) => void;
+interface GroceryItemsProps {
+  items: Item[];
+  onIngredientClick: (itemId: string) => void;
+}
+
+export const GroceryItems: React.FC<GroceryItemsProps> = ({
+  items,
+  onIngredientClick,
 }) => {
-  const [showDetails, setShowDetails] = useState(false);
-
-  const completed = item.completed;
-  const toogleDetails = () => {
-    setShowDetails(!showDetails);
-  };
-
   return (
-    <Fragment>
-      <div
-        className="item"
-        onClick={completed ? toogleDetails : undefined}
-        style={completed ? { textDecoration: "line-through" } : undefined}
-      >
-        {item.name}
-        <div
-          onClick={
-            startCompletingItem != null
-              ? () => startCompletingItem(item.itemId)
-              : undefined
-          }
-          className={completed ? "completed-check-box" : "check-box"}
+    <div className="space-y-2 px-[10%]">
+      {items.map((item) => (
+        <Card
+          key={item.itemId}
+          onClick={() => onIngredientClick(item.itemId)}
+          className={cn(
+            "cursor-pointer transition-all hover:bg-muted",
+            "border border-border rounded-xl"
+          )}
         >
-          <i className="fas fa-check fa-xs" />
-        </div>
-      </div>
-      {showDetails && (
-        <> ex bootstrap modal </>
-
-        // <ListGroup variant="flush">
-        //   <ListGroupItem style={{ padding: '0.25rem 1.5rem', fontStyle: 'italic' }}>
-        //     by {item.completedBy}
-        //   </ListGroupItem>
-        //   <ListGroupItem style={{ padding: '0.25rem 1.5rem', fontWeight: 'bold' }}>
-        //     {item.price} €
-        //   </ListGroupItem>
-        // </ListGroup>
-      )}
-    </Fragment>
+          <CardContent className="flex items-center gap-3">
+            <Checkbox checked={item.completed} />
+            <span
+              className={cn(
+                "text-base",
+                item.completed && "line-through text-muted-foreground"
+              )}
+            >
+              {item.name}
+            </span>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
   );
 };

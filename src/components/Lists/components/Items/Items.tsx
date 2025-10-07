@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { Item, List } from "../../../../../types";
 import { updateList } from "../../../../gateway";
-import { CompleteItemModal, GroceryItem } from "./";
+import { CompleteItemModal, GroceryItems } from "./";
 
 export const Items = ({
   selectedList,
@@ -87,19 +87,12 @@ export const Items = ({
   };
 
   return (
-    <div className="main-component">
-      {hasAllCompleted
-        ? getItemPlaceholder()
-        : items.map(
-            (item: Item) =>
-              !item.completed && (
-                <GroceryItem
-                  item={item}
-                  key={item.itemId}
-                  startCompletingItem={startCompletingItem}
-                />
-              )
-          )}
+    <div className="list-items">
+      {hasAllCompleted ? (
+        getItemPlaceholder()
+      ) : (
+        <GroceryItems items={items} onIngredientClick={startCompletingItem} />
+      )}
       {hasSomeCompleted && (
         <Fragment>
           <div className="formGroup">
@@ -115,20 +108,25 @@ export const Items = ({
             </div>
           </div>
           <> ex bootstrap modal </>
-          {/* <Collapse in={showCompletedItems}>
-            <div>
-              {completedItems.length !== 0
-                ? completedItems.map((item: Item) => <GroceryItem key={item.itemId} item={item} />)
-                : null}
-            </div>
-          </Collapse> */}
+          <div>
+            {completedItems.length !== 0
+              ? completedItems.map((item: Item) => (
+                  <GroceryItems
+                    items={items}
+                    onIngredientClick={startCompletingItem}
+                  />
+                ))
+              : null}
+          </div>
         </Fragment>
       )}
 
       <CompleteItemModal
         completingItem={completingItem}
         stopCompletingItem={stopCompletingItem}
-        item={items.find((item: Item) => item.itemId === selectedItemId)!}
+        itemName={
+          items.find((item: Item) => item.itemId === selectedItemId)?.name ?? ""
+        }
         handleOnClickSave={handleOnClickSave}
         handleOnClickDelete={handleOnClickDelete}
       />

@@ -1,16 +1,31 @@
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupText,
+} from "@/components/ui/input-group";
 import { useState } from "react";
-import { Item } from "../../../../../types";
 
 interface CompleteItemModalProps {
+  itemName: string;
   completingItem: boolean;
   stopCompletingItem: VoidFunction;
-  item: Item;
   handleOnClickSave: (completedBy: string, price: string) => void;
   handleOnClickDelete: VoidFunction;
 }
 
 export const CompleteItemModal = ({
-  item,
+  itemName,
   completingItem,
   stopCompletingItem,
   handleOnClickSave,
@@ -20,7 +35,52 @@ export const CompleteItemModal = ({
   const [price, setPrice] = useState("");
 
   return (
-    <> ex bootstrap modal </>
+    <Dialog open={completingItem} onOpenChange={stopCompletingItem}>
+      <form>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Ingredient - {itemName}</DialogTitle>
+            <DialogDescription>
+              This will mark this item as completed, please provide additional
+              deatils for reporting purposes.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid w-full max-w-sm gap-6">
+            <InputGroup>
+              <InputGroupAddon>
+                <InputGroupText>$</InputGroupText>
+              </InputGroupAddon>
+              <InputGroupInput placeholder="0.00" />
+              <InputGroupAddon align="inline-end">
+                <InputGroupText>USD</InputGroupText>
+              </InputGroupAddon>
+            </InputGroup>
+            <InputGroup>
+              <InputGroupAddon>
+                <InputGroupText>https://</InputGroupText>
+              </InputGroupAddon>
+              <InputGroupInput placeholder="example.com" className="!pl-0.5" />
+              <InputGroupAddon align="inline-end">
+                <InputGroupText>.com</InputGroupText>
+              </InputGroupAddon>
+            </InputGroup>
+          </div>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline" onClick={stopCompletingItem}>
+                Cancel
+              </Button>
+            </DialogClose>
+            <Button
+              type="submit"
+              onClick={() => handleOnClickSave(completedBy, price)}
+            >
+              Save changes
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </form>
+    </Dialog>
 
     // <Modal show={completingItem} onHide={stopCompletingItem} centered>
     //   <ModalHeader>

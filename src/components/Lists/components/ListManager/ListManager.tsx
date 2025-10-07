@@ -140,9 +140,6 @@ export const ListManager = ({
               </Button>
             </div>
           </div>
-          <div className="new-item-btn" onClick={toogleItemForm}>
-            Add new item
-          </div>
         </Fragment>
       ) : null}
       <AddListModal
