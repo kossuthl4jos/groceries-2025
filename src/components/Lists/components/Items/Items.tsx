@@ -114,11 +114,9 @@ export const Items = ({
             </div>
           </div>
           <div>
-            {completedItems.length !== 0
-              ? completedItems.map((item: Item) => (
-                  <GroceryItems items={completedItems} />
-                ))
-              : null}
+            {completedItems.length !== 0 ? (
+              <GroceryItems items={completedItems} />
+            ) : null}
           </div>
         </Fragment>
       )}
