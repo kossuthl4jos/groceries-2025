@@ -24,16 +24,24 @@ export const GroceryItems: React.FC<GroceryItemsProps> = ({
             "border border-border rounded-xl"
           )}
         >
-          <CardContent className="flex items-center gap-3">
-            <Checkbox checked={item.completed} />
-            <span
-              className={cn(
-                "text-base",
-                item.completed && "line-through text-muted-foreground"
-              )}
-            >
-              {item.name}
-            </span>
+          <CardContent className="flex items-center gap-3 justify-between">
+            <div>
+              <Checkbox checked={item.completed} />
+              <span
+                className={cn(
+                  "ml-2",
+                  item.completed && "line-through text-muted-foreground"
+                )}
+              >
+                {item.name}
+              </span>
+            </div>
+            <div>
+              <span>{item.price ? `€${item.price.toFixed(2)}` : null}</span>
+              <span className="ml-2">
+                {item.completedBy ? `- Purchsed by ${item.completedBy}` : null}
+              </span>
+            </div>
           </CardContent>
         </Card>
       ))}
