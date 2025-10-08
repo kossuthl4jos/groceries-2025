@@ -5,8 +5,9 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 const RootLayout = () => (
   <>
     <Header />
-    <hr />
-    <Outlet />
+    <div className="container mx-auto px-4 pb-20">
+      <Outlet />
+    </div>
     <Navbar />
     <TanStackRouterDevtools />
   </>
