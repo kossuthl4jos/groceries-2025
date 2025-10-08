@@ -15,6 +15,9 @@ export const Items = ({
   const [selectedItemId, setSelectedItemId] = useState("");
 
   const items = selectedList.items;
+  const itemsToComplete = items.filter(
+    (item: Item) => item.completed === false
+  );
   const completedItems = items.filter((item: Item) => item.completed === true);
   const stopCompletingItem = () => {
     setCompletingItem(false);
@@ -91,7 +94,10 @@ export const Items = ({
       {hasAllCompleted ? (
         getItemPlaceholder()
       ) : (
-        <GroceryItems items={items} onIngredientClick={startCompletingItem} />
+        <GroceryItems
+          items={itemsToComplete}
+          onIngredientClick={startCompletingItem}
+        />
       )}
       {hasSomeCompleted && (
         <Fragment>
@@ -107,14 +113,10 @@ export const Items = ({
               </span>
             </div>
           </div>
-          <> ex bootstrap modal </>
           <div>
             {completedItems.length !== 0
               ? completedItems.map((item: Item) => (
-                  <GroceryItems
-                    items={items}
-                    onIngredientClick={startCompletingItem}
-                  />
+                  <GroceryItems items={completedItems} />
                 ))
               : null}
           </div>

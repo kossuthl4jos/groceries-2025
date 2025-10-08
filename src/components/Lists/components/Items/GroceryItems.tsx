@@ -6,7 +6,7 @@ import { Item } from "types";
 
 interface GroceryItemsProps {
   items: Item[];
-  onIngredientClick: (itemId: string) => void;
+  onIngredientClick?: (itemId: string) => void;
 }
 
 export const GroceryItems: React.FC<GroceryItemsProps> = ({
@@ -18,7 +18,7 @@ export const GroceryItems: React.FC<GroceryItemsProps> = ({
       {items.map((item) => (
         <Card
           key={item.itemId}
-          onClick={() => onIngredientClick(item.itemId)}
+          onClick={() => onIngredientClick?.(item.itemId)}
           className={cn(
             "cursor-pointer transition-all hover:bg-muted",
             "border border-border rounded-xl"
