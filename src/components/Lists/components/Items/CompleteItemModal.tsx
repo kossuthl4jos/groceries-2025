@@ -8,12 +8,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
   InputGroupText,
 } from "@/components/ui/input-group";
+import { Label } from "@/components/ui/label";
 import { useState } from "react";
 
 interface CompleteItemModalProps {
@@ -31,8 +33,8 @@ export const CompleteItemModal = ({
   handleOnClickSave,
   handleOnClickDelete,
 }: CompleteItemModalProps) => {
-  const [completedBy, setCompletedBy] = useState("");
   const [price, setPrice] = useState("");
+  const [completedBy, setCompletedBy] = useState("");
 
   return (
     <Dialog open={completingItem} onOpenChange={stopCompletingItem}>
@@ -48,22 +50,24 @@ export const CompleteItemModal = ({
           <div className="grid w-full max-w-sm gap-6">
             <InputGroup>
               <InputGroupAddon>
-                <InputGroupText>$</InputGroupText>
+                <InputGroupText>€</InputGroupText>
               </InputGroupAddon>
-              <InputGroupInput placeholder="0.00" />
+              <InputGroupInput
+                placeholder="0.00"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
               <InputGroupAddon align="inline-end">
-                <InputGroupText>USD</InputGroupText>
+                <InputGroupText>EUR</InputGroupText>
               </InputGroupAddon>
             </InputGroup>
-            <InputGroup>
-              <InputGroupAddon>
-                <InputGroupText>https://</InputGroupText>
-              </InputGroupAddon>
-              <InputGroupInput placeholder="example.com" className="!pl-0.5" />
-              <InputGroupAddon align="inline-end">
-                <InputGroupText>.com</InputGroupText>
-              </InputGroupAddon>
-            </InputGroup>
+            <Label htmlFor="completedBy">Completed By</Label>
+            <Input
+              id="completedBy"
+              type="text"
+              value={completedBy}
+              onChange={(e) => setCompletedBy(e.target.value)}
+            />
           </div>
           <DialogFooter>
             <DialogClose asChild>
