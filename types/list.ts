@@ -7,7 +7,7 @@ export interface Item {
 }
 
 export interface List {
-  _id: string;
+  id: string;
   name: string;
   items: Item[];
 }

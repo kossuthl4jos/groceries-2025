@@ -6,7 +6,7 @@ import { Items, ListManager } from "./components";
 export const Lists = () => {
   const [lists, setLists] = useState<List[]>([]);
   const [selectedListId, setSelectedListId] = useState<string>();
-  const selectedList = lists.find((list) => list._id === selectedListId);
+  const selectedList = lists.find((list) => list.id === selectedListId);
 
   const refreshLists = async () => {
     const newLists = await getLists();
@@ -18,7 +18,7 @@ export const Lists = () => {
 
   useEffect(() => {
     if (lists != null && lists.length > 0) {
-      setSelectedListId(lists[lists.length - 1]._id);
+      setSelectedListId(lists[lists.length - 1].id);
     }
   }, [lists]);
 

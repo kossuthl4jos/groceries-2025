@@ -25,7 +25,7 @@ export class LocalGateWay {
     const newLists: List[] = [...(lists ?? []), list];
 
     saveLists(newLists);
-    return newLists;
+    return list;
   };
 
   deleteList = (listId: string) => {
@@ -34,7 +34,7 @@ export class LocalGateWay {
 
     const newLists: List[] = [...(lists ?? [])];
 
-    saveLists(newLists.filter((list) => list._id !== listId));
+    saveLists(newLists.filter((list) => list.id !== listId));
   };
 
   updateList = (list: List) => {
@@ -42,7 +42,7 @@ export class LocalGateWay {
     const { lists } = JSON.parse(groceriesList);
 
     const newLists: List[] = [
-      ...(lists.filter((l: List) => l._id !== list._id) ?? []),
+      ...(lists.filter((l: List) => l.id !== list.id) ?? []),
       list,
     ];
     saveLists(newLists);

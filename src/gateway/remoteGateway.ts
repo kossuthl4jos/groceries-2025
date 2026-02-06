@@ -16,7 +16,7 @@
 //   };
 
 //   addList = async (list: List) => {
-//     const { _id, ...listToSubmit } = list;
+//     const { id, ...listToSubmit } = list;
 
 //     const res = await fetch(BACKED_HOST + '/list', {
 //       method: 'POST',
@@ -45,9 +45,9 @@
 //   };
 
 //   updateList = async (list: List) => {
-//     const { _id, ...listToSubmit } = list;
+//     const { id, ...listToSubmit } = list;
 
-//     const res = await fetch(BACKED_HOST + `/list/${_id}`, {
+//     const res = await fetch(BACKED_HOST + `/list/${id}`, {
 //       method: 'PUT',
 //       headers: {
 //         'Content-Type': 'application/json',

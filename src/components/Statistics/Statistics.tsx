@@ -78,7 +78,7 @@ export const Statistics = () => {
           </thead>
           <tbody>
             {lists.map((list, index) => (
-              <tr key={list._id}>
+              <tr key={list.id}>
                 <td>{index + 1}</td>
                 <td>{list.name}</td>
                 <td>{getTotalAmountSpentOnList(list)}</td>

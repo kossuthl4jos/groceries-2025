@@ -35,7 +35,7 @@ export const Items = ({
 
     if (selectedList != null) {
       await updateList({
-        _id: selectedList._id,
+        id: selectedList.id,
         name: selectedList.name,
         items: [
           ...selectedList.items.filter(
@@ -52,7 +52,7 @@ export const Items = ({
   const handleOnClickDelete = () => {
     if (selectedList != null) {
       updateList({
-        _id: selectedList._id,
+        id: selectedList.id,
         name: selectedList.name,
         items: [
           ...selectedList.items.filter((item) => item.itemId != selectedItemId),
@@ -90,7 +90,7 @@ export const Items = ({
   };
 
   return (
-    <div className="list-items">
+    <div className="list-items py-4 px-[5%]">
       {hasAllCompleted ? (
         getItemPlaceholder()
       ) : (

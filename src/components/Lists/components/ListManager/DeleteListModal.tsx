@@ -53,7 +53,7 @@ export const DeleteListModal = ({
               type="submit"
               variant="destructive"
               disabled={list == null}
-              onClick={() => handleOnClickDelete(list!._id)}
+              onClick={() => handleOnClickDelete(list!.id)}
             >
               Delete
             </Button>

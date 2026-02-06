@@ -31,7 +31,7 @@ export const ListManager = ({
   const [deleteListModalVisible, setDeleteListModalVisible] = useState(false);
   const [addingItem, setAddingItem] = useState(false);
 
-  const selectedList = lists?.find((list) => list._id === selectedListId);
+  const selectedList = lists?.find((list) => list.id === selectedListId);
 
   const stopAddingItem = () => {
     setAddingItem(false);
@@ -39,16 +39,16 @@ export const ListManager = ({
 
   const handleOnClickSaveNewList = async (newListName: string) => {
     const newList = {
-      _id: uuidv4(),
+      id: uuidv4(),
       name: newListName,
       items: [],
     };
 
-    const { _id } = await addList(newList);
+    const { id } = await addList(newList);
     await refreshLists();
 
-    if (_id != null) {
-      updateSelectedListId(_id);
+    if (id != null) {
+      updateSelectedListId(id);
     }
     setAddListModalVisible(false);
   };
@@ -57,7 +57,7 @@ export const ListManager = ({
     await deleteList(listId);
     await refreshLists();
     if (lists != null && lists.length > 0) {
-      updateSelectedListId(lists[0]._id);
+      updateSelectedListId(lists[0].id);
     } else {
       updateSelectedListId(undefined);
     }
@@ -73,7 +73,7 @@ export const ListManager = ({
 
     if (selectedList != null) {
       await updateList({
-        _id: selectedList._id,
+        id: selectedList.id,
         name: selectedList.name,
         items: [...selectedList.items, newItem],
       });
@@ -116,8 +116,8 @@ export const ListManager = ({
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                {lists?.map((list) => (
-                  <SelectItem key={list._id} value={list._id}>
+                {lists.map((list) => (
+                  <SelectItem key={list.id} value={list.id}>
                     {list.name}
                   </SelectItem>
                 ))}
@@ -148,7 +148,7 @@ export const ListManager = ({
         handleOnClickSave={handleOnClickSaveNewList}
       />
       <DeleteListModal
-        list={lists?.find((list) => list._id === selectedListId)}
+        list={lists?.find((list) => list.id === selectedListId)}
         show={deleteListModalVisible}
         stopDeletingList={() => setDeleteListModalVisible(false)}
         handleOnClickDelete={handleOnClickDeleteList}
