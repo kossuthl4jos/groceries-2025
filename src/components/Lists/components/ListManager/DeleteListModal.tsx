@@ -24,9 +24,7 @@ export const DeleteListModal = ({
   handleOnClickDelete,
 }: DeleteListModalProps) => {
   const numberOfItemsToComplete = () => {
-    return list?.items != null
-      ? list?.items.filter((item) => item.completed === true).length
-      : 0;
+    return list?.items?.filter((item) => item.completed === true).length ?? 0;
   };
 
   return (
@@ -39,7 +37,7 @@ export const DeleteListModal = ({
               This will permanently delete the list and all its items. Are you
               sure?
               {numberOfItemsToComplete() > 0
-                ? "You still have items to buy."
+                ? " You still have items to buy."
                 : ""}
             </DialogDescription>
           </DialogHeader>
@@ -52,8 +50,8 @@ export const DeleteListModal = ({
             <Button
               type="submit"
               variant="destructive"
-              disabled={list == null}
-              onClick={() => handleOnClickDelete(list!.id)}
+              disabled={!list}
+              onClick={() => list && handleOnClickDelete(list.id)}
             >
               Delete
             </Button>

@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { Item, List } from "../../../../../types";
 import { updateList } from "../../../../gateway";
 import { CompleteItemModal, GroceryItems } from "./";
@@ -33,7 +33,7 @@ export const Items = ({
       price: Number(price),
     };
 
-    if (selectedList != null) {
+    if (selectedList) {
       await updateList({
         id: selectedList.id,
         name: selectedList.name,
@@ -50,12 +50,12 @@ export const Items = ({
   };
 
   const handleOnClickDelete = () => {
-    if (selectedList != null) {
+    if (selectedList) {
       updateList({
         id: selectedList.id,
         name: selectedList.name,
         items: [
-          ...selectedList.items.filter((item) => item.itemId != selectedItemId),
+          ...selectedList.items.filter((item) => item.itemId !== selectedItemId),
         ],
       });
       setCompletingItem(false);
@@ -100,7 +100,7 @@ export const Items = ({
         />
       )}
       {hasSomeCompleted && (
-        <Fragment>
+        <>
           <div className="formGroup">
             <div
               className="completed-header input-group"
@@ -114,11 +114,11 @@ export const Items = ({
             </div>
           </div>
           <div>
-            {completedItems.length !== 0 ? (
+            {completedItems.length !== 0 && (
               <GroceryItems items={completedItems} />
-            ) : null}
+            )}
           </div>
-        </Fragment>
+        </>
       )}
 
       <CompleteItemModal

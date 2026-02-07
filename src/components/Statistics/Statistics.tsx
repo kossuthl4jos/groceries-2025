@@ -1,55 +1,40 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Item, List } from "../../../types";
 import { getLists } from "../../gateway";
 
 export const Statistics = () => {
   const [lists, setLists] = useState<List[]>([]);
 
-  const refreshLists = async () => {
-    const newLists = await getLists();
-
-    if (newLists != null) {
-      setLists(newLists);
-    }
-  };
-
   useEffect(() => {
+    const refreshLists = async () => {
+      const newLists = await getLists();
+
+      if (newLists) {
+        setLists(newLists);
+      }
+    };
+
     refreshLists();
   }, []);
 
   const getTotalAmountSpent = () => {
-    let totalAmountSpent = 0;
     const items = lists?.map((list: List) => list.items) ?? [];
 
-    for (let i = 0; i < items.length; i++) {
-      const completedItems = items[i].filter((item: Item) => item.completed);
+    return items.reduce((total, listItems) => {
+      const completedItems = listItems.filter((item: Item) => item.completed);
 
-      if (completedItems.length > 0) {
-        for (let i = 0; i < completedItems.length; i++) {
-          if (!isNaN(completedItems[i].price!)) {
-            totalAmountSpent += completedItems[i].price!;
-          }
-        }
-      }
-    }
-
-    return totalAmountSpent;
+      return total + completedItems.reduce((sum, item) => {
+        return sum + (!isNaN(item.price!) ? item.price! : 0);
+      }, 0);
+    }, 0);
   };
 
   const getTotalAmountSpentOnList = (list: List) => {
-    let totalAmountSpent = 0;
-
     const completedItems = list.items.filter((item: Item) => item.completed);
 
-    if (completedItems.length > 0) {
-      for (let i = 0; i < completedItems.length; i++) {
-        if (!isNaN(completedItems[i].price!)) {
-          totalAmountSpent += completedItems[i].price!;
-        }
-      }
-    }
-
-    return totalAmountSpent;
+    return completedItems.reduce((total, item) => {
+      return total + (!isNaN(item.price!) ? item.price! : 0);
+    }, 0);
   };
 
   const hasAllCompleted = (items: Item[]) => {
@@ -57,7 +42,7 @@ export const Statistics = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <div className="main-component">
         ex bootstrap Jumbotron
         {/* <Jumbotron style={{ textAlign: "center" }}>
@@ -88,6 +73,6 @@ export const Statistics = () => {
           </tbody>
         </Table> */}
       </div>
-    </Fragment>
+    </>
   );
 };

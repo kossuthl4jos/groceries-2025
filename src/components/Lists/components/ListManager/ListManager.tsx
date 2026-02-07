@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PlusIcon, Trash } from "lucide-react";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { List } from "../../../../../types";
 import { addList, deleteList, updateList } from "../../../../gateway";
@@ -47,7 +47,7 @@ export const ListManager = ({
     const { id } = await addList(newList);
     await refreshLists();
 
-    if (id != null) {
+    if (id) {
       updateSelectedListId(id);
     }
     setAddListModalVisible(false);
@@ -56,7 +56,7 @@ export const ListManager = ({
   const handleOnClickDeleteList = async (listId: string) => {
     await deleteList(listId);
     await refreshLists();
-    if (lists != null && lists.length > 0) {
+    if (lists && lists.length > 0) {
       updateSelectedListId(lists[0].id);
     } else {
       updateSelectedListId(undefined);
@@ -71,7 +71,7 @@ export const ListManager = ({
       completed: false,
     };
 
-    if (selectedList != null) {
+    if (selectedList) {
       await updateList({
         id: selectedList.id,
         name: selectedList.name,
@@ -106,7 +106,7 @@ export const ListManager = ({
         </ButtonGroup>
       </div>
       <div className="list-select">
-        {lists != null && lists.length > 0 ? (
+        {lists && lists.length > 0 ? (
           <Select
             value={selectedListId}
             onValueChange={(value: string) => updateSelectedListId(value)}
@@ -128,20 +128,18 @@ export const ListManager = ({
           <div>Please create a list first</div>
         )}
       </div>
-      {lists != null && lists.length > 0 && selectedList ? (
-        <Fragment>
-          <div className="list-details border-b w-full pb-1 my-3 flex justify-between">
-            <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-              {selectedList.name}
-            </h2>
-            <div className="flex flex-col gap-8">
-              <Button variant="outline" size="sm" onClick={toogleItemForm}>
-                <PlusIcon /> Add new item
-              </Button>
-            </div>
+      {lists && lists.length > 0 && selectedList && (
+        <div className="list-details border-b w-full pb-1 my-3 flex justify-between">
+          <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+            {selectedList.name}
+          </h2>
+          <div className="flex flex-col gap-8">
+            <Button variant="outline" size="sm" onClick={toogleItemForm}>
+              <PlusIcon /> Add new item
+            </Button>
           </div>
-        </Fragment>
-      ) : null}
+        </div>
+      )}
       <AddListModal
         show={addListModalVisible}
         stopAddingList={() => setAddListModalVisible(false)}

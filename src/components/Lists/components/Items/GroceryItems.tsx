@@ -1,7 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils"; // shadcn helper (for conditional classes)
-import React from "react";
 import { Item } from "types";
 
 interface GroceryItemsProps {
@@ -9,10 +8,10 @@ interface GroceryItemsProps {
   onIngredientClick?: (itemId: string) => void;
 }
 
-export const GroceryItems: React.FC<GroceryItemsProps> = ({
+export const GroceryItems = ({
   items,
   onIngredientClick,
-}) => {
+}: GroceryItemsProps) => {
   return (
     <div className="space-y-2 px-[10%]">
       {items.map((item) => (

@@ -11,19 +11,20 @@ export const Lists = () => {
   const refreshLists = async () => {
     const newLists = await getLists();
 
-    if (newLists != null) {
+    if (newLists) {
       setLists(newLists);
     }
   };
 
   useEffect(() => {
-    if (lists != null && lists.length > 0) {
+    if (lists.length > 0) {
       setSelectedListId(lists[lists.length - 1].id);
     }
   }, [lists]);
 
   useEffect(() => {
     refreshLists();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -34,9 +35,9 @@ export const Lists = () => {
         selectedListId={selectedListId}
         updateSelectedListId={setSelectedListId}
       />
-      {selectedList != null ? (
+      {selectedList && (
         <Items selectedList={selectedList} refreshLists={refreshLists} />
-      ) : null}
+      )}
     </div>
   );
 };

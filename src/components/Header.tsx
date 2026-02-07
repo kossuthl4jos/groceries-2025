@@ -11,7 +11,7 @@ export function Header() {
   const { authToken, userName } = useAuth();
 
   function logOut() {
-    if (authToken != null) {
+    if (authToken) {
       clearAuthToken();
       redirect("/login");
     }
@@ -21,7 +21,7 @@ export function Header() {
     <div className="bg-sky-900 text-white">
       <nav className=" flex justify-between items-center p-4">
         <h1 className="text-4xl font-bold">
-          Groceries {authToken != null ? ` - Hello ${userName}!` : ""}
+          Groceries {authToken ? ` - Hello ${userName}!` : ""}
         </h1>
         {authToken ? (
           <div className="header-auth-button text-white" onClick={logOut}>
