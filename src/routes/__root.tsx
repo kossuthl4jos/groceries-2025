@@ -2,14 +2,18 @@ import { Header, Navbar } from "@/components";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 
 const RootLayout = () => (
-  <>
+  <div className="flex flex-col h-screen">
     <Header />
-    <div className="container mx-auto px-4 pb-20">
-      <Outlet />
+    <div className="flex flex-1 overflow-hidden">
+      <Navbar />
+      <div className="flex-1 overflow-auto">
+        <div className="container mx-auto px-4 py-4">
+          <Outlet />
+        </div>
+      </div>
     </div>
-    <Navbar />
     {/* <TanStackRouterDevtools /> */}
-  </>
+  </div>
 );
 
 export const Route = createRootRoute({ component: RootLayout });
