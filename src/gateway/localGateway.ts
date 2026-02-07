@@ -49,7 +49,7 @@ export class LocalGateWay {
   };
 
   loginUser = async (user: { userName: string; password: string }) => {
-    for (var key in localStorage) {
+    for (const key in localStorage) {
       if (key.startsWith("groceries-user-key")) {
         const credentials = JSON.parse(localStorage.getItem(key)!);
         if (

@@ -17,7 +17,8 @@ export const Statistics = () => {
     refreshLists();
   }, []);
 
-  const getTotalAmountSpent = () => {
+  // These functions are prepared for future statistics features
+  const _getTotalAmountSpent = () => {
     const items = lists?.map((list: List) => list.items) ?? [];
 
     return items.reduce((total, listItems) => {
@@ -29,7 +30,7 @@ export const Statistics = () => {
     }, 0);
   };
 
-  const getTotalAmountSpentOnList = (list: List) => {
+  const _getTotalAmountSpentOnList = (list: List) => {
     const completedItems = list.items.filter((item: Item) => item.completed);
 
     return completedItems.reduce((total, item) => {
@@ -37,7 +38,7 @@ export const Statistics = () => {
     }, 0);
   };
 
-  const hasAllCompleted = (items: Item[]) => {
+  const _hasAllCompleted = (items: Item[]) => {
     return items.every((item: Item) => item.completed);
   };
 

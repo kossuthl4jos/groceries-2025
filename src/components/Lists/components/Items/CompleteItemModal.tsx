@@ -31,7 +31,7 @@ export const CompleteItemModal = ({
   completingItem,
   stopCompletingItem,
   handleOnClickSave,
-  handleOnClickDelete,
+  handleOnClickDelete: _handleOnClickDelete,
 }: CompleteItemModalProps) => {
   const [price, setPrice] = useState("");
   const [completedBy, setCompletedBy] = useState("");
@@ -86,56 +86,6 @@ export const CompleteItemModal = ({
       </form>
     </Dialog>
 
-    // <Modal show={completingItem} onHide={stopCompletingItem} centered>
-    //   <ModalHeader>
-    //     <ModalTitle>{item?.name}</ModalTitle>
-    //     <Button variant="danger" onClick={handleOnClickDelete}>
-    //       DELETE
-    //     </Button>
-    //   </ModalHeader>
-    //   <ModalBody>
-    //     <FormGroup controlId="itemPrice">
-    //       <InputGroup>
-    //         <InputGroupWithExtras.Text>€</InputGroupWithExtras.Text>
-    //         <FormControl
-    //           type="number"
-    //           placeholder="Price"
-    //           aria-describedby="inputGroupPrepend"
-    //           onChange={(e: ChangeEvent) => {
-    //             setPrice((e.target as HTMLInputElement).value);
-    //           }}
-    //           required
-    //         />
-    //       </InputGroup>
-    //     </FormGroup>
-    //     <FormControl
-    //       type="text"
-    //       placeholder="Purchased by"
-    //       onChange={(e: ChangeEvent) => {
-    //         setCompletedBy((e.target as HTMLInputElement).value);
-    //       }}
-    //     />
-    //   </ModalBody>
-    //   <ModalFooter>
-    //     <ButtonToolbar className="justify-content-between">
-    //       <ButtonGroup
-    //         className="pull-left"
-    //         aria-label="First group"
-    //       ></ButtonGroup>
-    //       <ButtonGroup aria-label="Second group">
-    //         <Button variant="secondary" onClick={stopCompletingItem}>
-    //           Close
-    //         </Button>
-    //         <Button
-    //           variant="primary"
-    //           onClick={() => handleOnClickSave(completedBy, price)}
-    //           disabled={completedBy === "" || price === ""}
-    //         >
-    //           Save
-    //         </Button>
-    //       </ButtonGroup>
-    //     </ButtonToolbar>
-    //   </ModalFooter>
-    // </Modal>
+  
   );
 };

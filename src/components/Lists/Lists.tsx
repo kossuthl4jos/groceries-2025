@@ -24,8 +24,7 @@ export const Lists = () => {
 
   useEffect(() => {
     refreshLists();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, []); // Initial load only
 
   return (
     <div>
