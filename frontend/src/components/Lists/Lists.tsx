@@ -17,12 +17,6 @@ export const Lists = () => {
   };
 
   useEffect(() => {
-    if (lists.length > 0) {
-      setSelectedListId(lists[lists.length - 1].id);
-    }
-  }, [lists]);
-
-  useEffect(() => {
     refreshLists();
   }, []); // Initial load only
 
