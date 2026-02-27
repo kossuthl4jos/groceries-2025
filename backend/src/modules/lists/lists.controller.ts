@@ -20,16 +20,16 @@ export async function getLists(req: Request, res: Response) {
   try {
     const db: Db = req.app.locals.db;
 
-    const page = Number(req.query.page) || 1;
-    const pageSize = Number(req.query.pageSize) || 5;
-    const skip = (page - 1) * pageSize;
+    // const page = Number(req.query.page) || 1;
+    // const pageSize = Number(req.query.pageSize) || 5;
+    // const skip = (page - 1) * pageSize;
 
     const lists = await db
       .collection("lists")
       .find()
-      .sort({ author: 1 })
-      .skip(skip)
-      .limit(pageSize)
+      .sort({ _id: 1 })
+      // .skip(skip)
+      // .limit(pageSize)
       .toArray();
 
     res.status(200).json(lists.map(toDTO));
