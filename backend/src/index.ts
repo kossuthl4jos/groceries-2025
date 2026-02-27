@@ -7,14 +7,14 @@ import booksRoutes from "./modules/books/books.routes";
 import listsRoutes from "./modules/lists/lists.routes";
 
 const port = process.env.SERVER_PORT;
-const localFEOrigin = process.env.LOCAL_FE_ORIGIN;
+const allowedOrigin = process.env.LOCAL_FE_ORIGIN;
 const app = express();
 app.use(express.json());
 
 // CORS configuration
 app.use(
   cors({
-    origin: localFEOrigin,
+    origin: allowedOrigin,
   }),
 );
 
@@ -22,7 +22,7 @@ connectToDatabase()
   .then((db: Db) => {
     app.listen(port, () => {
       console.log(
-        `server started at http://localhost:${port} with CORS enabled for ${localFEOrigin}`,
+        `server started at http://localhost:${port} with CORS enabled for ${allowedOrigin}`,
       );
     });
 
