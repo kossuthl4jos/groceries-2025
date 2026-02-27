@@ -43,7 +43,7 @@ export class RemoteGateWay {
   updateList = async (list: List) => {
     const { id, ...listToSubmit } = list;
     const res = await fetch(this.baseUrl + `/lists/${id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
