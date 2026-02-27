@@ -56,11 +56,6 @@ export const ListManager = ({
   const handleOnClickDeleteList = async (listId: string) => {
     await deleteList(listId);
     await refreshLists();
-    if (lists && lists.length > 0) {
-      updateSelectedListId(lists[0].id);
-    } else {
-      updateSelectedListId(undefined);
-    }
     setDeleteListModalVisible(false);
   };
 

@@ -18,7 +18,20 @@ export const Lists = () => {
 
   useEffect(() => {
     refreshLists();
-  }, []); // Initial load only
+  }, []);
+
+  useEffect(() => {
+    if (lists.length === 0) {
+      setSelectedListId(undefined);
+      return;
+    }
+
+    const stillExists = lists.some((list) => list.id === selectedListId);
+
+    if (!stillExists) {
+      setSelectedListId(lists[0].id);
+    }
+  }, [lists, selectedListId]);
 
   return (
     <div>
