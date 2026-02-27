@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Db, ObjectId } from "mongodb";
+import { toDTO, toMongo } from "../../utils/normalizeId";
 
 // TODO add service layer like so:
 // import { Request, Response } from "express";
@@ -31,7 +32,7 @@ export async function getLists(req: Request, res: Response) {
       .limit(pageSize)
       .toArray();
 
-    res.status(200).json(lists);
+    res.status(200).json(lists.map(toDTO));
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Could not fetch the documents" });
@@ -55,7 +56,7 @@ export async function getListById(req: Request, res: Response) {
       return res.status(404).json({ error: "List not found" });
     }
 
-    res.status(200).json(doc);
+    res.status(200).json(toDTO(doc));
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Could not fetch the document" });
@@ -67,8 +68,8 @@ export async function createList(req: Request, res: Response) {
 
   try {
     const db: Db = req.app.locals.db;
-    const result = await db.collection("lists").insertOne(list);
-    res.status(201).json({ _id: result.insertedId, ...list });
+    const result = await db.collection("lists").insertOne(toMongo(list));
+    res.status(201).json({ id: result.insertedId, ...list });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Could not create a new document" });
