@@ -1,9 +1,11 @@
 import { List } from "../../types";
 import { LocalGateWay } from "./localGateway";
+import { RemoteGateWay } from "./remoteGateway";
 
-// const backendMode = process.env.BACKEND;
-// const backendService = backendMode === 'remote' ? new RemoteGateWay() : new LocalGateWay();
-const backendService = new LocalGateWay();
+const BACKED_HOST = import.meta.env.VITE_REMOTE_BACKEND_HOST;
+const backendService = BACKED_HOST
+  ? new RemoteGateWay(BACKED_HOST)
+  : new LocalGateWay();
 
 export async function getLists(): Promise<List[]> {
   return await backendService.getLists();
