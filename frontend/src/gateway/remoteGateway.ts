@@ -7,7 +7,7 @@ export class RemoteGateWay {
   }
 
   getLists = async () => {
-    const res = await fetch(this.baseUrl + "/list", {
+    const res = await fetch(this.baseUrl + "/lists", {
       method: "GET",
     });
     if (res.status === 500 || !res.ok) {
@@ -18,7 +18,7 @@ export class RemoteGateWay {
   };
   addList = async (list: List) => {
     const { id, ...listToSubmit } = list;
-    const res = await fetch(this.baseUrl + "/list", {
+    const res = await fetch(this.baseUrl + "/lists", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export class RemoteGateWay {
     }
   };
   deleteList = async (listId: string) => {
-    const res = await fetch(this.baseUrl + `/list/${listId}`, {
+    const res = await fetch(this.baseUrl + `/lists/${listId}`, {
       method: "DELETE",
     });
     if (res.status === 500 || !res.ok) {
@@ -42,7 +42,7 @@ export class RemoteGateWay {
   };
   updateList = async (list: List) => {
     const { id, ...listToSubmit } = list;
-    const res = await fetch(this.baseUrl + `/list/${id}`, {
+    const res = await fetch(this.baseUrl + `/lists/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -53,6 +53,7 @@ export class RemoteGateWay {
       console.error("could not update list");
     }
   };
+
   loginUser = async (user: { userName: string; password: string }) => {
     const res = await fetch(this.baseUrl + `/login`, {
       method: "POST",
